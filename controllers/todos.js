@@ -14,7 +14,7 @@ const generateTodoId = async () => {
 // };
 const create = (data) => Todo.create(data);
 
-const update = (id, updatedStatus) => Todo.findByIdAndUpdate(id, updatedStatus, { new: true });
+const update = (id, updatedStatus) => Todo.findOneAndUpdate(id, updatedStatus, { new: true });
 
 // const find = (id) => Todo.findById(id);
 const find = (user) => Todo.findOne(user);
