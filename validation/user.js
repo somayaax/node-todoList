@@ -3,7 +3,7 @@ const Joi = require('joi');
 
 const signUp = {
     body: Joi.object().required().keys({
-        userName: Joi.string().min(5).required(),
+        userName: Joi.string().min(3).required(),
         password: Joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')).message("password must be at least 5 chars, at most 30"),
         quote: Joi.string().required(),
     }),
