@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable linebreak-style */
 const Todo = require('../models/todo');
 
@@ -7,16 +8,14 @@ const generateTodoId = async () => {
   if (!todosNumber) {
     return 1;
   }
-  const lastTodo = await Todo.findOne({}, {}, { sort: { created_at: -1 } });
-  return lastTodo.id + 1;
+  const lastTodo = await Todo.find({}).sort('-createdAt').limit(1);
+  return lastTodo[0]._id + 1;
 };
-  // return (todosNumber ? Todo.findOne({}, {}, { sort: { created_at: -1 } }).id : 1);
-// };
+
 const create = (data) => Todo.create(data);
 
-const update = (id, updatedStatus) => Todo.findOneAndUpdate(id, updatedStatus, { new: true });
+const update = (_id, updatedStatus) => Todo.findOneAndUpdate(_id, updatedStatus, { new: true });
 
-// const find = (id) => Todo.findById(id);
 const find = (user) => Todo.findOne(user);
 
 // const get = (filter) => Todo.find(filter)
@@ -25,9 +24,10 @@ const find = (user) => Todo.findOne(user);
 //   .select('id title status')
 //   .exec();
 
-const get = () => Todo.find({}).select('id title status -_id').exec();
+const get = () => Todo.find({}).select('title status _id').exec();
 
-const deleteTodo = (id) => Todo.findByIdAndDelete(id);
+const deleteTodo = (_id) => Todo.findByAndDelete(_id);
+
 module.exports = {
   create,
   update,

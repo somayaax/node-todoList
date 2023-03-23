@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   quote: {
     type: String,
     required: true,
-  }
+  },
 }, {
   toJSON: {
     // eslint-disable-next-line func-names, object-shorthand
@@ -36,7 +36,6 @@ userSchema.pre('save', function hashPass(next) {
 userSchema.methods.verifyPassword = function verifyPassword(pass) {
   return bcrypt.compareSync(pass, this.password);
 }
-
 
 const User = mongoose.model('User', userSchema);
 

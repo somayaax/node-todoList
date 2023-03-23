@@ -11,8 +11,8 @@ const router = express.Router();
 router.post('/', auth, async (req, res, next) => {
   const { body: { title } } = req;
   try {
-    const id = await todosController.generateTodoId();
-    const data = await todosController.create({ title, userId: req.user._id, id });
+    const _id = await todosController.generateTodoId();
+    const data = await todosController.create({ title, userId: req.user._id, _id });
     return res.status(201).json({ status: 'succes', data });
   } catch (err) {
     return next(err);
@@ -30,13 +30,14 @@ router.get('/', auth, async (req, res, next) => {
 
 router.patch('/:id', auth, async (req, res, next) => {
   const { params: { id }, body: { status } } = req;
+  console.log(req.params);
   try {
-    const todo = await todosController.find({ id, userId: req.user._id });
+    const todo = await todosController.find({ _id: id, userId: req.user._id });
     if (!todo) return res.status(403).json({ status: 'failed', message: 'Todo does not exist!' });
-    const updatedTodo = await todosController.update(id, { status });
+    const updatedTodo = await todosController.update({ _id: Number(id) }, { status });
     return res.status(200).json(updatedTodo);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 

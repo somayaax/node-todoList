@@ -17,7 +17,7 @@ const todoSchema = new mongoose.Schema({
     favourite: { type: Boolean, default: false },
     deleted: { type: Boolean, default: false },
   },
-  id: { type: Number },
+  _id: { type: Number },
 }, {
   timestamps: true,
 });
