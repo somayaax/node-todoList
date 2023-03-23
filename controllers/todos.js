@@ -24,7 +24,7 @@ const find = (user) => Todo.findOne(user);
 //   .select('id title status')
 //   .exec();
 
-const get = () => Todo.find({}).select('title status _id').exec();
+const get = (userId) => Todo.find(userId).select('title status _id').exec();
 
 const deleteTodo = (_id) => Todo.findByAndDelete(_id);
 

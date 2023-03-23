@@ -16,9 +16,9 @@ app.use(router);
 // eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line arrow-body-style
 app.use('/users', (err, req, res, next) => {
-  if (err.code === 11000) return res.status(400).json({ messege: 'username already exists!' });
-  if (err.message === 'un-authenticated') return res.status(400).json({ messege: "username and password don't match" });
-  if (err.message === 'un-authorized') return res.status(401).json({ messege: 'un-authorized access' });
+  if (err.code === 11000) return res.status(400).json({ message: 'username already exists!' });
+  if (err.message === 'un-authenticated') return res.status(400).json({ message: "username and password don't match" });
+  if (err.message === 'un-authorized') return res.status(401).json({ message: 'un-authorized access' });
   return res.status(400).json({ message: err.message });
 });
 

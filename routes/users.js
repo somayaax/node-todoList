@@ -9,7 +9,7 @@ const { usersValidator } = require('../validation');
 
 const router = express.Router();
 
-router.post('/', validate(usersValidator.signUp), async (req, res, next) => {
+router.post('/register', validate(usersValidator.signUp), async (req, res, next) => {
   try {
     const {
       body: {

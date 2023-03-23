@@ -21,7 +21,7 @@ router.post('/', auth, async (req, res, next) => {
 
 router.get('/', auth, async (req, res, next) => {
   try {
-    const data = await todosController.get();
+    const data = await todosController.get({userId: req.user._id});
     return res.status(200).json({ status: 'succes', data });
   } catch (err) {
     return next(err);
