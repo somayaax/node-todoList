@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const AppError = require('./appError');
 
-const handleValidationError = (err) => new AppError(`${Object.keys(err.errors).join(' ')} is not valid `, 422);
+const handleValidationError = (err) => {
+  console.log(err);
+  return new AppError(`${Object.keys(err.errors).join(' ')} is not valid `, 422);
+};
 
 const handleDuplicteError = (err) => new AppError(` Value of field ${Object.keys(err.keyValue)[0]} is Duplicated please choose another one`, 422);
 
