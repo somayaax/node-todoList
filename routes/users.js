@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable linebreak-style */
 const express = require('express');
 const { usersController } = require('../controllers');
@@ -11,12 +13,12 @@ router.post('/', validate(usersValidator.signUp), async (req, res, next) => {
   try {
     const {
       body: {
-        userName, password, quote
+        userName, password, quote,
       },
     } = req;
 
     const user = await usersController.create({
-      userName, password, quote
+      userName, password, quote,
     });
     res.status(201).json(user);
   } catch (err) {
@@ -36,19 +38,19 @@ router.post('/signin', validate(usersValidator.signIn), async (req, res, next) =
 
 router.get('/', auth, async (req, res, next) => {
   try {
-    const user = await usersController.find({ _id: req.user._id }, '-_id');
+    // const user = await usersController.find({ _id: req.user._id }, '-_id');
+    const user = await usersController.findOne({ _id: req.user._id }, '-_id');
     res.json(user);
   } catch (err) {
     next(err);
   }
 });
 
-
-
 router.delete('/:id', auth, validate(usersValidator.id), async (req, res, next) => {
   const { id } = req.params;
   try {
-    if (id != req.user._id) throw new Error("un-authorized");
+    // eslint-disable-next-line eqeqeq
+    if (id != req.user._id) throw new Error('un-authorized');
     const user = await usersController.deleteUser(id);
     if (user) res.status(200).json({ message: 'user deleted' });
   } catch (err) {
