@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
 const express = require('express');
 require('dotenv').config();
@@ -23,7 +24,7 @@ app.use('/users', (err, req, res, next) => {
 });
 
 app.use('/todos', handleResponseError);
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

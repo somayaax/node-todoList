@@ -1,9 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable linebreak-style */
 const express = require('express');
-// const { validate } = require('../middlewares/validation');
 const { todosController } = require('../controllers');
-// const { todosValidator } = require('../validation');
 const auth = require('../middlewares/auth');
 
 const router = express.Router();
@@ -28,7 +26,7 @@ router.post('/', auth, async (req, res, next) => {
 
 router.get('/', auth, async (req, res, next) => {
   try {
-    const data = await todosController.get({userId: req.user._id});
+    const data = await todosController.get({ userId: req.user._id });
     return res.status(200).json({ status: 'succes', data });
   } catch (err) {
     return next(err);
@@ -47,7 +45,6 @@ router.get('/:id', auth, async (req, res, next) => {
 
 router.patch('/:id', auth, async (req, res, next) => {
   const { params: { id }, body: { status, deadline } } = req;
-  console.log({ status, deadline });
   try {
     const todo = await todosController.find({ _id: id, userId: req.user._id });
     if (!todo) return res.status(403).json({ status: 'failed', message: 'Todo does not exist!' });
