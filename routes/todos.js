@@ -9,10 +9,17 @@ const auth = require('../middlewares/auth');
 const router = express.Router();
 
 router.post('/', auth, async (req, res, next) => {
-  const { body: { title } } = req;
+  const {
+    body: {
+      title, description, steps, priority,
+    },
+  } = req;
   try {
     const _id = await todosController.generateTodoId();
-    const data = await todosController.create({ title, userId: req.user._id, _id });
+    const data = await todosController.create({
+      // eslint-disable-next-line max-len
+      title, userId: req.user._id, _id, description, steps, priority, deadline: Date(req.body.deadline),
+    });
     return res.status(201).json({ status: 'succes', data });
   } catch (err) {
     return next(err);
@@ -28,13 +35,23 @@ router.get('/', auth, async (req, res, next) => {
   }
 });
 
+router.get('/:id', auth, async (req, res, next) => {
+  try {
+    // eslint-disable-next-line max-len
+    const data = await todosController.getbyId({ _id: Number(req.params.id), userId: req.user._id });
+    return res.status(200).json({ status: 'succes', data });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 router.patch('/:id', auth, async (req, res, next) => {
-  const { params: { id }, body: { status } } = req;
-  console.log(req.params);
+  const { params: { id }, body: { status, deadline } } = req;
+  console.log({ status, deadline });
   try {
     const todo = await todosController.find({ _id: id, userId: req.user._id });
     if (!todo) return res.status(403).json({ status: 'failed', message: 'Todo does not exist!' });
-    const updatedTodo = await todosController.update({ _id: Number(id) }, { status });
+    const updatedTodo = await todosController.update({ _id: Number(id) }, { status, deadline });
     return res.status(200).json(updatedTodo);
   } catch (err) {
     return next(err);

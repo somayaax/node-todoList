@@ -18,6 +18,13 @@ const update = (_id, updatedStatus) => Todo.findOneAndUpdate(_id, updatedStatus,
 
 const find = (user) => Todo.findOne(user);
 
+const getbyId = async (filter) => {
+  console.log(filter);
+  const data = await Todo.findOne(filter);
+  console.log(data);
+  return Todo.findOne(filter);
+};
+
 // const get = (filter) => Todo.find(filter)
 //   // .skip(skip)
 //   // .limit(limit)
@@ -35,4 +42,5 @@ module.exports = {
   deleteTodo,
   find,
   generateTodoId,
+  getbyId,
 };
