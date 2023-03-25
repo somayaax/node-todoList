@@ -5,7 +5,6 @@ const todoSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    minLength: 3,
     maxLength: 20,
   },
   userId: {
