@@ -26,10 +26,9 @@ const todoSchema = new mongoose.Schema({
   },
   steps: {
     type: [{
-      text:String,
+      text: String,
       isChecked:
-        {type:Boolean,default:false}
-      
+        { type: Boolean, default: false },
     }],
   },
 
