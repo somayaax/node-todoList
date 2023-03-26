@@ -19,9 +19,7 @@ const update = (_id, updatedStatus) => Todo.findOneAndUpdate(_id, updatedStatus,
 const find = (user) => Todo.findOne(user);
 
 const getbyId = async (filter) => {
-  console.log(filter);
   const data = await Todo.findOne(filter);
-  console.log(data);
   return Todo.findOne(filter);
 };
 
@@ -31,7 +29,7 @@ const getbyId = async (filter) => {
 //   .select('id title status')
 //   .exec();
 
-const get = (userId) => Todo.find(userId).select('title status _id').exec();
+const get = (userId) => Todo.find(userId).select('title status deadline _id').exec();
 
 const deleteTodo = (_id) => Todo.findByAndDelete(_id);
 

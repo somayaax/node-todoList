@@ -16,7 +16,7 @@ router.post('/', auth, async (req, res, next) => {
     const _id = await todosController.generateTodoId();
     const data = await todosController.create({
       // eslint-disable-next-line max-len
-      title, userId: req.user._id, _id, description, steps, priority, deadline: Date(req.body.deadline),
+      title, userId: req.user._id, _id, description, steps, priority, deadline: req.body.deadline,
     });
     return res.status(201).json({ status: 'succes', data });
   } catch (err) {
@@ -44,11 +44,11 @@ router.get('/:id', auth, async (req, res, next) => {
 });
 
 router.patch('/:id', auth, async (req, res, next) => {
-  const { params: { id }, body: { status, deadline } } = req;
+  const { params: { id }, body: { status, deadline,steps } } = req;
   try {
     const todo = await todosController.find({ _id: id, userId: req.user._id });
     if (!todo) return res.status(403).json({ status: 'failed', message: 'Todo does not exist!' });
-    const updatedTodo = await todosController.update({ _id: Number(id) }, { status, deadline });
+    const updatedTodo = await todosController.update({ _id: Number(id) }, { status, deadline ,steps});
     return res.status(200).json(updatedTodo);
   } catch (err) {
     return next(err);

@@ -10,7 +10,7 @@ const signUp = {
 };
 const signIn = {
     body: Joi.object().required().keys({
-        userName: Joi.string().min(5).required(),
+        userName: Joi.string().min(3).required(),
         password: Joi.string().required(),
     }),
 };

@@ -6,7 +6,6 @@ const todoSchema = new mongoose.Schema({
     type: String,
     required: true,
     minLength: 3,
-    maxLength: 20,
   },
   userId: {
     type: mongoose.Types.ObjectId,
@@ -26,7 +25,12 @@ const todoSchema = new mongoose.Schema({
     maxLength: 200,
   },
   steps: {
-    type: [Object],
+    type: [{
+      text:String,
+      isChecked:
+        {type:Boolean,default:false}
+      
+    }],
   },
 
   priority: {
